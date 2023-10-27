@@ -1,0 +1,35 @@
+{
+  "name": "find-a-friend-api",
+  "version": "1.0.0",
+  "description": "Find a Friend",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelCStrahl/find-a-friend-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelCStrahl/find-a-friend-api/issues"
+  },
+  "homepage": "https://github.com/MichaelCStrahl/find-a-friend-api#readme",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0",
+    "@types/node": "20.8.9",
+    "eslint": "8.52.0",
+    "tsup": "7.2.0",
+    "tsx": "3.14.0",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "dotenv": "16.3.1",
+    "fastify": "4.24.3",
+    "zod": "3.22.4"
+  }
+}
