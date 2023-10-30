@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Age {
+  puppy @map("Filhote")
+  adult @map("Adulto")
+}
+
+enum Size {
+  little  @map("Pequeno")
+  average @map("Médio")
+  large   @map("Grande")
+}
+
+enum Independence {
+  low    @map("Baixo (precisa de companhia sempre)")
+  medium @map("Médio")
+  high   @map("Alto")
+}
+
+enum Type {
+  dog @map("Cachorro")
+  cat @map("Gato")
+}
+
+enum HabitatSize {
+  small  @map("Ambiente Pequeno")
+  medium @map("Ambiente Medio")
+  wide   @map("Ambiente Amplo")
+}
+
+model Pet {
+  id           String       @id @default(uuid())
+  name         String
+  about        String
+  age          Age
+  energy       Int
+  size         Size
+  indepence    Independence
+  type         Type
+  habitat_size HabitatSize
+
+  org                   Org                    @relation(fields: [org_id], references: [id])
+  org_id                String
+  pet_gallery           PetGallery[]
+  adoption_requirements AdoptionRequirements[]
+
+  @@map("pets")
+}
+
+model Org {
+  id            String @id @default(uuid())
+  name          String
+  email         String @unique
+  address       String
+  cep           String
+  whatsapp      String
+  password_hash String
+  pet           Pet[]
+
+  @@map("orgs")
+}
+
+model PetGallery {
+  id    String @id @default(uuid())
+  image String
+  order Int
+
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("pet_gallery")
+}
+
+model AdoptionRequirements {
+  id     String @id @default(uuid())
+  title  String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("adoption_requirements")
+}

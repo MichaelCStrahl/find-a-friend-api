@@ -1,3 +1,21 @@
+# Setup
+Para rodar localmente o projeto é necessário seguir os seguintes passos:
+
+1. Instale o Docker e o Docker compose
+2. Execute o comando abaixo dentro do diretório do projeto
+   
+```bash
+docker compose up -d
+```
+
+3. Instale as dependências e rode as migrations
+
+```bash
+npm install -y
+npm run migrate
+```
+
+
 # APP
 
 Find a Friend
