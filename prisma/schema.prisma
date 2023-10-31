@@ -49,10 +49,10 @@ model Pet {
   type         Type
   habitat_size HabitatSize
 
-  org                   Org                    @relation(fields: [org_id], references: [id])
-  org_id                String
-  pet_gallery           PetGallery[]
-  adoption_requirements AdoptionRequirements[]
+  org                  Org                    @relation(fields: [org_id], references: [id])
+  org_id               String
+  gallery              PetGallery[]
+  adoptionRequirements AdoptionRequirements[]
 
   @@map("pets")
 }
@@ -65,7 +65,7 @@ model Org {
   cep           String
   whatsapp      String
   password_hash String
-  pet           Pet[]
+  pets          Pet[]
 
   @@map("orgs")
 }
@@ -75,17 +75,18 @@ model PetGallery {
   image String
   order Int
 
-  pet    Pet    @relation(fields: [pet_id], references: [id])
   pet_id String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
 
   @@map("pet_gallery")
 }
 
 model AdoptionRequirements {
-  id     String @id @default(uuid())
-  title  String
-  pet    Pet    @relation(fields: [pet_id], references: [id])
+  id    String @id @default(uuid())
+  title String
+
   pet_id String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
 
   @@map("adoption_requirements")
 }
