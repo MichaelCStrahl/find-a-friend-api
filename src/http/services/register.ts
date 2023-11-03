@@ -1,4 +1,4 @@
-import { OrgsRepository } from '@/repositories/orgs-repository'
+import { OrgsRepository } from '@/http/repositories/orgs-repository'
 import { hash } from 'bcryptjs'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
 import { Org } from '@prisma/client'
@@ -6,8 +6,10 @@ import { Org } from '@prisma/client'
 interface RegisterUseCaseRequest {
   name: string
   email: string
-  address: string
   cep: string
+  state: string
+  city: string
+  address: string
   whatsapp: string
   password: string
 }
@@ -26,8 +28,10 @@ export class RegisterUseCase {
   async execute({
     name,
     email,
-    address,
     cep,
+    state,
+    city,
+    address,
     whatsapp,
     password,
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
@@ -44,6 +48,8 @@ export class RegisterUseCase {
       email,
       address,
       cep,
+      state,
+      city,
       whatsapp,
       password_hash,
     })

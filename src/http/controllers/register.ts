@@ -8,13 +8,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    address: z.string(),
     cep: z.string(),
+    city: z.string(),
+    state: z.string(),
+    address: z.string(),
     whatsapp: z.string(),
     password: z.string().min(6),
   })
 
-  const { name, email, address, cep, whatsapp, password } =
+  const { name, email, cep, city, state, address, whatsapp, password } =
     registerBodySchema.parse(request.body)
 
   try {
@@ -23,8 +25,10 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     await registerUseCase.execute({
       name,
       email,
-      address,
       cep,
+      city,
+      state,
+      address,
       whatsapp,
       password,
     })

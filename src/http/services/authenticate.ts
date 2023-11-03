@@ -1,4 +1,4 @@
-import { OrgsRepository } from '@/repositories/orgs-repository'
+import { OrgsRepository } from '@/http/repositories/orgs-repository'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { compare } from 'bcryptjs'
 import { Org } from '@prisma/client'

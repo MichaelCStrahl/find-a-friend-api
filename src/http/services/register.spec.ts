@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { InMemoryOrgsRepository } from '@/http/repositories/in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
 
 let orgRepository: InMemoryOrgsRepository
@@ -18,6 +18,8 @@ describe('Register Use Case', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
+      state: 'State',
+      city: 'City',
       cep: '99999-999',
       whatsapp: '55 99999 9999',
       password: '123456',
@@ -31,6 +33,8 @@ describe('Register Use Case', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
+      state: 'State',
+      city: 'City',
       cep: '99999-999',
       whatsapp: '55 99999 9999',
       password: '123456',
@@ -48,6 +52,8 @@ describe('Register Use Case', () => {
       name: 'John Doe',
       email,
       address: 'Address',
+      state: 'State',
+      city: 'City',
       cep: '99999-999',
       whatsapp: '55 99999 9999',
       password: '123456',
@@ -58,6 +64,8 @@ describe('Register Use Case', () => {
         name: 'John Doe',
         email,
         address: 'Address',
+        state: 'State',
+        city: 'City',
         cep: '99999-999',
         whatsapp: '55 99999 9999',
         password: '123456',

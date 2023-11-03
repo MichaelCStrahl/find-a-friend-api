@@ -15,6 +15,13 @@ enum Age {
   adult @map("Adulto")
 }
 
+enum Energy {
+  low       @map("Baixo")
+  moderate  @map("Moderado")
+  high      @map("Alto")
+  very_high @map("Muito Alto")
+}
+
 enum Size {
   little  @map("Pequeno")
   average @map("Médio")
@@ -27,7 +34,7 @@ enum Independence {
   high   @map("Alto")
 }
 
-enum Type {
+enum Specie {
   dog @map("Cachorro")
   cat @map("Gato")
 }
@@ -41,12 +48,12 @@ enum HabitatSize {
 model Pet {
   id           String       @id @default(uuid())
   name         String
-  about        String
+  about        String?
   age          Age
-  energy       Int
+  energy       Energy
   size         Size
   indepence    Independence
-  type         Type
+  specie       Specie
   habitat_size HabitatSize
 
   org                  Org                    @relation(fields: [org_id], references: [id])
@@ -61,8 +68,10 @@ model Org {
   id            String @id @default(uuid())
   name          String
   email         String @unique
-  address       String
   cep           String
+  state         String
+  city          String
+  address       String
   whatsapp      String
   password_hash String
   pets          Pet[]

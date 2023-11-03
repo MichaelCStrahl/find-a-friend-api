@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { InMemoryOrgsRepository } from '@/http/repositories/in-memory/in-memory-orgs-repository'
 import { AuthenticateUseCase } from './authenticate'
 import { hash } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
@@ -18,6 +18,8 @@ describe('Authenticate Use Case', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
+      state: 'State',
+      city: 'City',
       cep: '99999-999',
       whatsapp: '55 99999 9999',
       password_hash: await hash('123456', 6),
@@ -45,6 +47,8 @@ describe('Authenticate Use Case', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
+      state: 'State',
+      city: 'City',
       cep: '99999-999',
       whatsapp: '55 99999 9999',
       password_hash: await hash('123456', 6),
