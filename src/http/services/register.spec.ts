@@ -1,15 +1,20 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
 
-describe('Register Use Case', () => {
-  it('should be able to register', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(orgRepository)
+let orgRepository: InMemoryOrgsRepository
+let sut: RegisterUseCase
 
-    const { org } = await registerUseCase.execute({
+describe('Register Use Case', () => {
+  beforeEach(() => {
+    orgRepository = new InMemoryOrgsRepository()
+    sut = new RegisterUseCase(orgRepository)
+  })
+
+  it('should be able to register', async () => {
+    const { org } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
@@ -22,10 +27,7 @@ describe('Register Use Case', () => {
   })
 
   it('should hash org password upon registration', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(orgRepository)
-
-    const { org } = await registerUseCase.execute({
+    const { org } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: 'Address',
@@ -40,12 +42,9 @@ describe('Register Use Case', () => {
   })
 
   it('should not be able create org with same email twice', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(orgRepository)
-
     const email = 'johndoe@example.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'John Doe',
       email,
       address: 'Address',
@@ -55,7 +54,7 @@ describe('Register Use Case', () => {
     })
 
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'John Doe',
         email,
         address: 'Address',
