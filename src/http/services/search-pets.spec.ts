@@ -6,14 +6,14 @@ import { hash } from 'bcryptjs'
 import { Age } from '@prisma/client'
 
 let orgRepository: InMemoryOrgsRepository
-let petRepository: InMemoryPetsRepository
+let petsRepository: InMemoryPetsRepository
 let sut: SearchPetsUseCase
 
 describe('Search Pets Use Case', () => {
   beforeEach(() => {
-    petRepository = new InMemoryPetsRepository()
+    petsRepository = new InMemoryPetsRepository()
     orgRepository = new InMemoryOrgsRepository()
-    sut = new SearchPetsUseCase(petRepository, orgRepository)
+    sut = new SearchPetsUseCase(petsRepository, orgRepository)
   })
 
   it('should be able to search a pet', async () => {
@@ -32,7 +32,7 @@ describe('Search Pets Use Case', () => {
 
     if (!org1) return
 
-    await petRepository.create({
+    await petsRepository.create({
       name: 'New Pet',
       age: 'adult',
       energy: 'low',
@@ -43,7 +43,7 @@ describe('Search Pets Use Case', () => {
       org_id: org1.id,
     })
 
-    await petRepository.create({
+    await petsRepository.create({
       name: 'New Pet 2',
       age: 'cub',
       energy: 'low',
@@ -69,7 +69,7 @@ describe('Search Pets Use Case', () => {
 
     if (!org2) return
 
-    await petRepository.create({
+    await petsRepository.create({
       name: 'New Pet',
       age: 'adult',
       energy: 'low',
@@ -80,7 +80,7 @@ describe('Search Pets Use Case', () => {
       org_id: org2.id,
     })
 
-    await petRepository.create({
+    await petsRepository.create({
       name: 'New Pet 2',
       age: 'cub',
       energy: 'low',

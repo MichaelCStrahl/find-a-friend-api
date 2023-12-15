@@ -2,7 +2,6 @@ import { Age, Energy, Indepence, Pet, Size, Type } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { OrgsRepository } from '../repositories/orgs-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { ResourceRequiredError } from './errors/resource-required-error'
 
 export interface SearchPetsProps {
   age?: Age
@@ -42,9 +41,6 @@ export class SearchPetsUseCase {
   }: SearchPetsUseCaseRequest): Promise<SearchPetsUseCaseResponse> {
     const { city, state } = query
 
-    if (city.length === 0 || state.length === 0) {
-      throw new ResourceRequiredError()
-    }
     const orgs = await this.orgsRepository.findByCityAndState(city, state)
 
     if (!orgs) {
