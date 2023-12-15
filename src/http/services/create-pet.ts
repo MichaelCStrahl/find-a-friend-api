@@ -3,9 +3,9 @@ import {
   Age,
   Size,
   HabitatSize,
-  Specie,
   Energy,
   Indepence,
+  Type,
 } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { OrgsRepository } from '../repositories/orgs-repository'
@@ -18,7 +18,7 @@ interface CreatePetUseCaseRequest {
   energy: Energy
   size: Size
   indepence: Indepence
-  specie: Specie
+  type: Type
   habitatSize: HabitatSize
   orgId: string
 }
@@ -43,7 +43,7 @@ export class CreatePetUseCase {
     energy,
     size,
     indepence,
-    specie,
+    type,
     habitatSize,
     orgId,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
@@ -60,7 +60,7 @@ export class CreatePetUseCase {
       energy,
       size,
       indepence,
-      specie,
+      type,
       habitat_size: habitatSize,
       org_id: orgId,
     })

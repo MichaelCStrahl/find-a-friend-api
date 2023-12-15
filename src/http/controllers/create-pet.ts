@@ -7,11 +7,11 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
   const createPetBodySchema = z.object({
     name: z.string(),
     about: z.string().optional(),
-    age: z.enum(['puppy', 'adult']),
+    age: z.enum(['cub', 'adult', 'elderly']),
     energy: z.enum(['low', 'moderate', 'high', 'very_high']),
-    size: z.enum(['little', 'average', 'large']),
+    size: z.enum(['small', 'medium', 'big']),
     indepence: z.enum(['low', 'high', 'medium']),
-    specie: z.enum(['dog', 'cat']),
+    type: z.enum(['dog', 'cat']),
     habitatSize: z.enum(['medium', 'small', 'wide']),
     orgId: z.string(),
   })
@@ -23,7 +23,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     energy,
     size,
     indepence,
-    specie,
+    type,
     habitatSize,
     orgId,
   } = createPetBodySchema.parse(request.body)
@@ -38,7 +38,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
       energy,
       size,
       indepence,
-      specie,
+      type,
       habitatSize,
       orgId,
     })
