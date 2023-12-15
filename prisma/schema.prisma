@@ -11,8 +11,9 @@ datasource db {
 }
 
 enum Age {
-  puppy @map("Filhote")
-  adult @map("Adulto")
+  cub     @map("Filhote")
+  adult   @map("Adulto")
+  elderly @map("Idoso")
 }
 
 enum Energy {
@@ -23,18 +24,18 @@ enum Energy {
 }
 
 enum Size {
-  little  @map("Pequeno")
-  average @map("Médio")
-  large   @map("Grande")
+  small  @map("Pequeno")
+  medium @map("Médio")
+  big    @map("Grande")
 }
 
-enum Independence {
+enum Indepence {
   low    @map("Baixo (precisa de companhia sempre)")
   medium @map("Médio")
   high   @map("Alto")
 }
 
-enum Specie {
+enum Type {
   dog @map("Cachorro")
   cat @map("Gato")
 }
@@ -46,14 +47,14 @@ enum HabitatSize {
 }
 
 model Pet {
-  id           String       @id @default(uuid())
+  id           String      @id @default(uuid())
   name         String
   about        String?
   age          Age
   energy       Energy
   size         Size
-  indepence    Independence
-  specie       Specie
+  indepence    Indepence
+  type         Type
   habitat_size HabitatSize
 
   org                  Org                    @relation(fields: [org_id], references: [id])

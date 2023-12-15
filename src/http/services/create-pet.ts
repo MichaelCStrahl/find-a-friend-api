@@ -2,10 +2,10 @@ import {
   Pet,
   Age,
   Size,
-  Independence,
   HabitatSize,
   Specie,
   Energy,
+  Indepence,
 } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { OrgsRepository } from '../repositories/orgs-repository'
@@ -17,7 +17,7 @@ interface CreatePetUseCaseRequest {
   age: Age
   energy: Energy
   size: Size
-  indepence: Independence
+  indepence: Indepence
   specie: Specie
   habitatSize: HabitatSize
   orgId: string
