@@ -44,3 +44,5 @@ Find a Friend
 - [x] Os dados da aplicação devem estar persistidos em um banco PostgreSQL
 - [x] Todas as listas de dados precisam estar paginadas com 20 itens por página
 - [x] O usuário deve ser identificado por um JWT
+
+### Teste CI E2E tests
