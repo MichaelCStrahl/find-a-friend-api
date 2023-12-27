@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { ResourceNotFoundError } from '../services/errors/resource-not-found-error'
-import { makeCreatePetService } from '../services/factories/make-create-pet-service'
+import { ResourceNotFoundError } from '../../services/errors/resource-not-found-error'
+import { makeCreatePetService } from '../../services/factories/make-create-pet-service'
 
-export async function createPet(request: FastifyRequest, reply: FastifyReply) {
+export async function create(request: FastifyRequest, reply: FastifyReply) {
   const createPetBodySchema = z.object({
     name: z.string(),
     about: z.string().optional(),
@@ -13,20 +13,10 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     indepence: z.enum(['low', 'high', 'medium']),
     type: z.enum(['dog', 'cat']),
     habitatSize: z.enum(['medium', 'small', 'wide']),
-    orgId: z.string(),
   })
 
-  const {
-    name,
-    about,
-    age,
-    energy,
-    size,
-    indepence,
-    type,
-    habitatSize,
-    orgId,
-  } = createPetBodySchema.parse(request.body)
+  const { name, about, age, energy, size, indepence, type, habitatSize } =
+    createPetBodySchema.parse(request.body)
 
   try {
     const createPetUseCase = makeCreatePetService()
@@ -40,8 +30,10 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
       indepence,
       type,
       habitatSize,
-      orgId,
+      orgId: request.user.sub,
     })
+
+    return reply.status(201).send()
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({ message: error.message })
@@ -49,6 +41,4 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
 
     throw error
   }
-
-  return reply.status(201).send()
 }
